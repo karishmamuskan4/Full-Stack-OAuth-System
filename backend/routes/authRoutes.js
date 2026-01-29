@@ -23,14 +23,7 @@ router.get(
       expiresIn: "1d",
     });
 
-    res.redirect(`http://localhost:5173/dashboard?token=${jwtToken}`);
+    res.redirect(`http://localhost:5173/login?token=${jwtToken}`);
   },
 );
-
-router.get("/logout", (req, res) => {
-  res.json({
-    message: "Logged out successfully",
-  });
-});
-
 export default router;

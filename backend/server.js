@@ -3,6 +3,7 @@ import express from "express";
 import passport from "passport";
 import dotenv from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -19,10 +20,11 @@ connectDB();
 app.use(
   cors({
     origin: "http://localhost:5173",
-    credentials: false, //cokkies aur sessions allow kiye hai
+    credentials: true, //cokkies aur sessions allow kiye hai
   }),
 );
 app.use(express.json());
+app.use(cookieParser());
 app.use(passport.initialize());
 
 //routes

@@ -5,7 +5,7 @@ import User from "../models/user.js";
 
 dotenv.config();
 
-console.log("👉 GOOGLE STRATEGY LOADED");
+console.log(" GOOGLE STRATEGY LOADED");
 
 passport.use(
   new GoogleStrategy(

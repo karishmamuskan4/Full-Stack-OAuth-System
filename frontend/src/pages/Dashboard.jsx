@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
-  const { logout, isAuth } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
@@ -15,6 +15,13 @@ const Dashboard = () => {
     <div>
       <h1>Welcome to Dashboard</h1>
       <button onClick={handleLogout}>Logout</button>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Home
+      </button>
     </div>
   );
 };

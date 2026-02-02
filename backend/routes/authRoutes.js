@@ -32,7 +32,7 @@ router.get(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      age: 30 * 60 * 1000,
+      age: 30 * 30 * 60 * 1000,
     });
 
     res.cookie("refreshToken", refreshToken, {

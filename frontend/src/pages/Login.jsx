@@ -1,6 +1,7 @@
 import Reac from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import "../styles/login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Login = () => {
     window.location.href = "http://localhost:3000/auth/google";
   };
   return (
-    <div>
+    <div className="login">
       {message && (
         <div
           style={{
@@ -19,14 +20,18 @@ const Login = () => {
             padding: "10px",
             marginBottom: "15px",
             borderRadius: "6px",
+            width: "500px",
           }}
         >
           ⚠️ {message}
         </div>
       )}
       <h1>Login</h1>
-      <button onClick={handleLogin}>Login with Google</button>
+      <button className="google-btn" onClick={handleLogin}>
+        Login with Google
+      </button>
       <button
+        className="google-btn"
         onClick={() => {
           navigate("/");
         }}

@@ -1,0 +1,29 @@
+.login {
+  max-width: 400px;
+  margin: 120px auto;
+  text-align: center;
+}
+
+.login h1 {
+  font-size: 46px;
+  margin-bottom: 40px;
+}
+
+.google-btn {
+  width: 100%;
+  padding: 12px;
+
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background-color: #f3f4f6;
+  color: black;
+  cursor: pointer;
+}
+
+.google-btn:hover {
+  background-color: #060b5b;
+  color: #d1d5db;
+}

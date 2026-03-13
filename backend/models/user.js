@@ -22,6 +22,10 @@ const userSchema = new Schema(
       type: String,
       required: true, // Google profile ID
     },
+    refreshToken: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true },
 );

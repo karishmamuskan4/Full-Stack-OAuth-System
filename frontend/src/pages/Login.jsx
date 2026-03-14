@@ -8,7 +8,7 @@ const Login = () => {
   const location = useLocation();
   const message = location.state?.message;
   const handleLogin = () => {
-    window.location.href = "http://localhost:3000/auth/google";
+    window.location.href = "/auth/google";
   };
   return (
     <div className="login">

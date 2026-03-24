@@ -20,7 +20,7 @@ router.get(
   "/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: "http://localhost:5173/login",
+    failureRedirect: process.env.CLIENT_URL + "/login",
   }),
   async (req, res) => {
     const accessToken = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, {
@@ -38,18 +38,18 @@ router.get(
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 1 * 60 * 1000,
     });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.redirect(`http://localhost:5173/dashboard`);
+    res.redirect(`${process.env.CLIENT_URL}/dashboard`);
   },
 );
 

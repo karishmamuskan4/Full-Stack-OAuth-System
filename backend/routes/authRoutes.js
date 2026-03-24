@@ -24,7 +24,7 @@ router.get(
   }),
   async (req, res) => {
     const accessToken = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1m",
+      expiresIn: "15m",
     });
     const refreshToken = jwt.sign(
       { id: req.user._id },
@@ -39,7 +39,7 @@ router.get(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "none",
-      maxAge: 1 * 60 * 1000,
+      maxAge: 15 * 60 * 1000,
     });
 
     res.cookie("refreshToken", refreshToken, {
@@ -66,12 +66,12 @@ router.post("/logout", async (req, res) => {
       });
       res.clearCookie("accessToken", {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production", // local me false
       });
       res.clearCookie("refreshToken", {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
       });
       res.status(200).json({ message: "Logged out successfully" });
@@ -111,15 +111,15 @@ router.post("/refreshToken", async (req, res) => {
     }
     //Generating new access token
     const newAccessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1m",
+      expiresIn: "15m",
     });
 
     //Sending new access token cookie
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 1 * 60 * 1000,
+      sameSite: "none",
+      maxAge: 15 * 60 * 1000,
     });
 
     res.status(200).json({ message: "Access token refreshed" });

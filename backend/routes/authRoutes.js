@@ -5,11 +5,8 @@ import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import authMiddleware from "../middleware/authMiddleware.js";
 import User from "../models/user.js";
-
 dotenv.config();
-
 const router = express.Router();
-
 router.get(
   "/google",
   passport.authenticate("google", {
@@ -37,22 +34,29 @@ router.get(
     });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 15 * 60 * 1000,
     });
-
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    res.redirect(`${process.env.CLIENT_URL}/dashboard`);
+    // ✅ res.redirect ki jagah HTML page bheja
+    res.send(`
+      <html>
+        <body>
+          <script>
+            window.location.href = "${process.env.CLIENT_URL}/dashboard";
+          </script>
+        </body>
+      </html>
+    `);
   },
 );
-
 router.post("/logout", async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
@@ -67,12 +71,12 @@ router.post("/logout", async (req, res) => {
       res.clearCookie("accessToken", {
         httpOnly: true,
         sameSite: "none",
-        secure: process.env.NODE_ENV === "production", // local me false
+        secure: true,
       });
       res.clearCookie("refreshToken", {
         httpOnly: true,
         sameSite: "none",
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
       });
       res.status(200).json({ message: "Logged out successfully" });
     }
@@ -80,7 +84,6 @@ router.post("/logout", async (req, res) => {
     res.status(200).json({ message: "Logged out successfully" });
   }
 });
-
 router.get("/me", authMiddleware, (req, res) => {
   res.status(200).json({
     success: true,
@@ -103,25 +106,19 @@ router.post("/refreshToken", async (req, res) => {
     if (!user || !user.refreshToken) {
       return res.status(403).json({ message: "Refresh token not found" });
     }
-
-    // Comparing hashed token
     const isMatch = await bcrypt.compare(refreshToken, user.refreshToken);
     if (!isMatch) {
       return res.status(403).json({ message: "Refresh token mismatch" });
     }
-    //Generating new access token
     const newAccessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "15m",
     });
-
-    //Sending new access token cookie
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 15 * 60 * 1000,
     });
-
     res.status(200).json({ message: "Access token refreshed" });
   } catch (error) {
     res.status(500).json({ message: "Server error" });

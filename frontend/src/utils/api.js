@@ -27,7 +27,7 @@ api.interceptors.response.use(
 
         return api(originalRequest);
       } catch (refreshError) {
-        console.log("Refresh failed");
+        console.log(`Refresh failed${refreshError}`);
         if (window.location.pathname !== "/login") {
           window.location.href = "/login";
         }

@@ -111,16 +111,28 @@ const Dashboard = () => {
             <p>
               Save anything to ClipIn directly from WhatsApp — no app needed!
             </p>
-
             {!botCode ? (
-              <button
-                className="home-btn"
-                onClick={handleActivateBot}
-                disabled={loading}
-                style={{ marginTop: "1rem" }}
-              >
-                {loading ? "Generating..." : "Generate Activation Code"}
-              </button>
+              <>
+                <h3
+                  style={{
+                    background: "#f0f0f0",
+                    padding: "10px",
+                    borderRadius: "8px",
+                    letterSpacing: "4px",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  join what-practical
+                </h3>
+                <button
+                  className="home-btn"
+                  onClick={handleActivateBot}
+                  disabled={loading}
+                  style={{ marginTop: "1rem" }}
+                >
+                  {loading ? "Generating..." : "Generate Activation Code"}
+                </button>
+              </>
             ) : (
               <div>
                 <p>✅ Your activation code:</p>

@@ -53,7 +53,7 @@ const Dashboard = () => {
   };
 
   const waLink = botCode
-    ? `https://wa.me/14155238886?text=CLIPIN-${botCode.code}`
+    ? `https://wa.me/14155238886?text=join%20what-practical%0ACLIPIN-${botCode.code}`
     : null;
 
   return (

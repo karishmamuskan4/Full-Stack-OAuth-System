@@ -84,11 +84,16 @@ router.post("/logout", async (req, res) => {
     res.status(200).json({ message: "Logged out successfully" });
   }
 });
-router.get("/me", authMiddleware, (req, res) => {
-  res.status(200).json({
-    success: true,
-    user: req.user,
-  });
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-refreshToken");
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
 });
 router.post("/refreshToken", async (req, res) => {
   try {

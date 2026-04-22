@@ -1,15 +1,14 @@
 import express from "express";
 import User from "../models/user.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Generate 6 digit code
 const generateCode = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-// POST /bot/generate-code
-router.post("/generate-code", async (req, res) => {
+router.post("/generate-code", authMiddleware, async (req, res) => {
   try {
     const userId = req.user?._id;
 
@@ -21,13 +20,13 @@ router.post("/generate-code", async (req, res) => {
 
     await User.findByIdAndUpdate(userId, {
       botActivationCode: code,
-      botActivationExpiry: new Date(Date.now() + 10 * 60 * 1000), // 10 min
+      botActivationExpiry: new Date(Date.now() + 10 * 60 * 1000),
     });
 
     res.json({
       code,
       whatsappNumber: "+14155238886",
-      message: `join what-practical\nCLIPIN-${code}`,
+      message: `CLIPIN-${code}`,
     });
   } catch (err) {
     console.error(err);

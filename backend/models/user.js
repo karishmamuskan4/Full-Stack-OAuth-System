@@ -26,6 +26,18 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    whatsappNumber: {
+      type: String,
+      default: null,
+    },
+    botActivationCode: {
+      type: String,
+      default: null,
+    },
+    botActivationExpiry: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true },
 );

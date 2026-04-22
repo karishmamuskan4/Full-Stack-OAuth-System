@@ -8,6 +8,8 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import protectedRoutes from "./routes/protectedRoutes.js";
+import whatsappRoutes from "./routes/whatsappRoutes.js";
+import botRoutes from "./routes/botRoutes.js";
 
 dotenv.config();
 
@@ -24,12 +26,15 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(passport.initialize());
 
 //routes
 app.use("/auth", authRoutes);
 app.use("/api", protectedRoutes);
+app.use("/whatsapp", whatsappRoutes);
+app.use("/bot", botRoutes);
 
 const port = process.env.PORT;
 

@@ -11,12 +11,7 @@ const PublicNavbar = () => {
     <nav className="navbar">
       <h1 className="navbar__title">OAuth Project</h1>
       <button className="navbar__google-btn" onClick={handleGoogleLogin}>
-        <a
-          href="https://www.flaticon.com/free-icons/google"
-          title="google icons"
-        >
-          Continue with Google
-        </a>
+        Continue with Google
       </button>
     </nav>
   );

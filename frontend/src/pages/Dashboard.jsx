@@ -113,17 +113,6 @@ const Dashboard = () => {
             </p>
             {!botCode ? (
               <>
-                <h3
-                  style={{
-                    background: "#f0f0f0",
-                    padding: "10px",
-                    borderRadius: "8px",
-                    letterSpacing: "4px",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  join what-practical
-                </h3>
                 <button
                   className="home-btn"
                   onClick={handleActivateBot}

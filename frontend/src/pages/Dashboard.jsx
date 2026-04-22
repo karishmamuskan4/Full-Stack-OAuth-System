@@ -130,9 +130,12 @@ const Dashboard = () => {
                     background: "#f0f0f0",
                     padding: "10px",
                     borderRadius: "8px",
-                    letterSpacing: "4px",
+                    letterSpacing: "2px",
+                    lineHeight: "2",
                   }}
                 >
+                  join what-practical
+                  <br />
                   CLIPIN-{botCode.code}
                 </h3>
                 <p>⚠️ Code expires in 10 minutes!</p>
